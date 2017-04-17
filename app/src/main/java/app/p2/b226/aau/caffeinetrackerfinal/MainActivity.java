@@ -17,39 +17,26 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
 
-    public void CreateFragmentSettings(View view) {
-        Fragment fragment;
-        fragment = new SettingsFragment();
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.frament_place, fragment);
-        ft.commit();
-    }
-
-    public void CreateFragmentVisualization(View view) {
-        Fragment fragment;
-        fragment = new VisualizationFragment();
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.frament_place, fragment);
-        ft.commit();
-    }
-
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-
+                    changingFragment(new MainFragment());
                     return true;
                 case R.id.navigation_dashboard:
-                    CreateFragmentVisualization(null);
+                    changingFragment(new VisualizationFragment());
                     return true;
 
                 case R.id.navigation_notifications:
-                    CreateFragmentSettings(null);
+                    changingFragment(new SettingsFragment());
+                    return true;
+
+                case R.id.navigation_other:
+                    changingFragment(new MainFragment());
                     return true;
             }
             return false;
@@ -65,6 +52,14 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        changingFragment(new MainFragment());
+    }
+
+    public void changingFragment(Fragment frag){
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.frament_place, frag);
+        ft.commit();
     }
 
 
