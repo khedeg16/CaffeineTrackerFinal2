@@ -58,7 +58,8 @@ public class MainActivity extends AppCompatActivity {
     public void changingFragment(Fragment frag){
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.frament_place, frag);
+        ft.add(R.id.content, frag);
+        ft.addToBackStack(null);
         ft.commit();
     }
 
